@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-@Table(name = "userTB")
+@Table(name = "userProfileTB")
 public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,8 +40,9 @@ public class UserProfile {
     @Size(max = 32)
     private String zipCode;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "userProfile")
     private User user;
 
     public UserProfile() {
@@ -84,7 +85,9 @@ public class UserProfile {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
     public String getAddress() {
         return address;
     }
@@ -123,5 +126,13 @@ public class UserProfile {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

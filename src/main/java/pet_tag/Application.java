@@ -23,7 +23,7 @@ public class Application {
                         .allowCredentials(true)
                         .allowedMethods("*")
                         .allowedHeaders("Authorization", "Content-Type")
-                        .allowedOrigins("https://fonytas.github.io");
+                        .allowedOrigins("http://localhost:3000");
             }
         };
     }

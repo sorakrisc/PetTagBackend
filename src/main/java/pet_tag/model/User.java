@@ -10,15 +10,11 @@ import javax.validation.constraints.Size;
 
 
 @Entity
+@Table(name = "userTB")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
-
-    @NotNull
-    @Size(max = 20)
-    @Column(unique = true)
-    private String username;
 
     @Email(message = "*Please provide a valid Email")
     @NotNull(message = "*Please provide an email")
@@ -41,12 +37,11 @@ public class User {
     private String lastname;
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "user")
+            cascade =  CascadeType.ALL)
+    @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 
-    public User(String username, String firstname, String lastname, String email, String password, UserProfile userProfile){
-        this.username = username;
+    public User(String firstname, String lastname, String email, String password, UserProfile userProfile){
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -59,14 +54,6 @@ public class User {
 
     public long getUserid() {
         return userid;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {

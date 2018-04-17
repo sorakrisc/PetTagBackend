@@ -6,7 +6,7 @@ import pet_tag.model.User;
 
 @Repository("userRepo")
 public interface UserRepo extends JpaRepository<User, Long> {
-    User findByEmail(String email);
-    User findOneByUsername(String username);
+    User findOneByEmail(String email);
+//    User findOneByUsername(String username);
 
 }

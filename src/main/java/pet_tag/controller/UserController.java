@@ -11,6 +11,8 @@ import pet_tag.model.UserProfile;
 import pet_tag.repo.UserRepo;
 import pet_tag.service.UserService;
 
+import java.sql.SQLOutput;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -32,7 +34,7 @@ public class UserController {
     @GetMapping("/whoami")
     public ResponseEntity whoami(Authentication auth){
         String username = (String) auth.getPrincipal();
-        User user = userrp.findOneByUsername(username);
+        User user = userrp.findOneByEmail(username);
         Map<String, Object> ret = new HashMap<String, Object>(){{
             put("user",  username);
         }};
@@ -40,14 +42,19 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestParam("username") String username,
-                                   @RequestParam("firstname") String firstname,
+    public ResponseEntity register(@RequestParam("firstname") String firstname,
                                    @RequestParam("lastname") String lastname,
                                    @RequestParam("email") String email,
                                    @RequestParam("password") String password,
-                                   @RequestParam("userprofile")UserProfile userProfile){
+                                   @RequestParam("gender") String gender,
+                                   @RequestParam("dateOfBirth")Date dob,
+                                   @RequestParam("phone") String phone
+                                   ){
 
-
-       return userService.register(username, firstname, lastname, email, password, userProfile);
+        System.out.println(firstname);
+//        System.out.println(userProfile.getGender());
+//        UserProfile userProfile = null;
+//        return ResponseEntity.ok("ok");
+       return userService.register(firstname, lastname, email, password,gender,dob, phone);
     }
 }
