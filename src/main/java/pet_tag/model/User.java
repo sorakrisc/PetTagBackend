@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 
 @Entity
@@ -41,6 +42,10 @@ public class User {
     @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "pet")
+    private Set<Pet> pet;
     public User(String firstname, String lastname, String email, String password, UserProfile userProfile){
         this.firstname = firstname;
         this.lastname = lastname;
@@ -94,5 +99,13 @@ public class User {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public Set<Pet> getPet() {
+        return pet;
+    }
+
+    public void setPet(Set<Pet> pet) {
+        this.pet = pet;
     }
 }
