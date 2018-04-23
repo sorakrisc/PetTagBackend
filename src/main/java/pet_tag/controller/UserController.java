@@ -22,7 +22,6 @@ import java.util.Set;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
     @Autowired
     private UserRepo userrp;
 
@@ -33,12 +32,16 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/whoami")
-    public ResponseEntity whoami(Authentication auth){
+    public User getUser(Authentication auth){
         String username = (String) auth.getPrincipal();
         User user = userrp.findOneByEmail(username);
+        return user;
+    }
+    @GetMapping("/whoami")
+    public ResponseEntity whoami(Authentication auth){
+        User user = getUser(auth);
         Map<String, Object> ret = new HashMap<String, Object>(){{
-            put("user",  username);
+            put("user",  user.getEmail());
         }};
         return ResponseEntity.ok(ret);
     }

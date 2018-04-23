@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -44,8 +45,8 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
-            mappedBy = "pet")
-    private Set<Pet> pet;
+            mappedBy = "user")
+    private Set<Pet> pet = new HashSet<>();
     public User(String firstname, String lastname, String email, String password, UserProfile userProfile){
         this.firstname = firstname;
         this.lastname = lastname;
