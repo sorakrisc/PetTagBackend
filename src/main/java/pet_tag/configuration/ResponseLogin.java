@@ -14,7 +14,6 @@ public class ResponseLogin {
 
     private String message;
     private boolean login;
-    private String role;
 
     public String getMessage() {
         return message;
@@ -22,12 +21,6 @@ public class ResponseLogin {
 
     public boolean isLogin() {
         return login;
-    }
-
-    public String role() { return role;}
-
-    public String getRole() {
-        return role;
     }
 
     @Override

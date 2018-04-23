@@ -53,11 +53,11 @@ public class UserService{
     public void saveUser(User user) {
         userRepository.save(user);
     }
-    public boolean authenticate(String username, String password){
-        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()){
+    public boolean authenticate(String email, String password){
+        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()){
             return false;
         }
-        User user = userRepository.findOneByEmail(username);
+        User user = userRepository.findOneByEmail(email);
         return user!=null && bCryptPasswordEncoder.matches(password, user.getPassword());
     }
 

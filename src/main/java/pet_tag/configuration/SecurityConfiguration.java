@@ -21,34 +21,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-//                authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/registration").permitAll()
-//                .antMatchers("/user/**").permitAll()
-//                .antMatchers("/admin/**").hasAuthority("ADMIN")
-//                .anyRequest().authenticated()
-//
-//                .and()
-//                .csrf().disable()
-//
-//
-//                .formLogin().loginProcessingUrl("/login").successHandler(new SuccessAuthentication()).failureHandler(new FailAuthentication())
-//                    .usernameParameter("username")
-//                    .passwordParameter("password")
-//
-//                .and()
-//                .cors()
-//                .and()
-//                .logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/")
-//
-//                .and()
-//
-//                .exceptionHandling().authenticationEntryPoint(new EntryConfig())
-//                .accessDeniedPage("/access-denied");        http
-
                 .authorizeRequests()
                 .antMatchers("/login", "/logout", "/user/register/**").permitAll()
                 .antMatchers("/**").authenticated()

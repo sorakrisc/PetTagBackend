@@ -17,13 +17,13 @@ public class AuthHandler implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username = authentication.getName();
+        String email = authentication.getName();
         String password = authentication.getCredentials().toString();
 
         // Check with Database
 
-        if (userService.authenticate(username, password)){
-            return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+        if (userService.authenticate(email, password)){
+            return new UsernamePasswordAuthenticationToken(email, null, new ArrayList<>());
         }
 
 

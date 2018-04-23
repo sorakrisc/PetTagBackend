@@ -12,6 +12,8 @@ import pet_tag.repo.UserRepo;
 import pet_tag.service.UserService;
 
 import java.sql.SQLOutput;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +42,37 @@ public class UserController {
         }};
         return ResponseEntity.ok(ret);
     }
+    public int ageCalculator(Date bDay){
+        LocalDate newbDay = LocalDate.of(bDay.getYear(), bDay.getMonth(), bDay.getDay());
+        System.out.println(newbDay.getYear());
+        System.out.println(LocalDate.now());
+        System.out.println(Period.between(newbDay, LocalDate.now()).getYears());
+        return Period.between(newbDay,LocalDate.now()).getYears();
+    }
+    public Map<String, Object> getUserInfoHelper(Authentication auth){
+        String username = (String) auth.getPrincipal();
+        User user = userrp.findOneByEmail(username);
+        UserProfile profile = user.getUserProfile();
+        Map<String, Object> ret = new HashMap<String, Object>(){{
+            put("email",  user.getEmail());
+            put("firstname", user.getFirstname());
+            put("lastname", user.getLastname());
+            put("day", profile.getDateOfBirth());
+            put("country", profile.getCountry());
+            put("address", profile.getAddress());
+            put("gender", profile.getGender());
+            put("state", profile.getState());
+            put("zipcode", profile.getState());
+            put("city", profile.getCity());
 
+        }};
+        return ret;
+    }
+    @GetMapping("/getInfo")
+    public  ResponseEntity getInfo(Authentication auth){
+        Map<String, Object> ret = getUserInfoHelper(auth);
+        return ResponseEntity.ok(ret);
+    }
     @PostMapping("/register")
     public ResponseEntity register(@RequestParam("firstname") String firstname,
                                    @RequestParam("lastname") String lastname,
