@@ -46,6 +46,10 @@ public class UserController {
         }};
         return ResponseEntity.ok(ret);
     }
+    @PostMapping("/register/isValidEmail")
+    public ResponseEntity isValidEmail(@RequestParam("email") String email){
+        return userService.isValidEmail(email);
+    }
     public int ageCalculator(Date bDay){
         LocalDate newbDay = LocalDate.of(bDay.getYear(), bDay.getMonth(), bDay.getDay());
         System.out.println(newbDay.getYear());
@@ -83,6 +87,26 @@ public class UserController {
         Map<String, Object> ret = getUserInfoHelper(auth);
         return ResponseEntity.ok(ret);
     }
+    @PostMapping("/update")
+    public ResponseEntity update(@RequestParam("firstname") String firstname,
+                                 @RequestParam("lastname") String lastname,
+                                 @RequestParam("gender") String gender,
+                                 @RequestParam("dateOfBirth")Date dob,
+                                 @RequestParam("phone") String phone,
+                                 @RequestParam("address") String address,
+                                 @RequestParam("city") String city,
+                                 @RequestParam("state") String state,
+                                 @RequestParam("country") String country,
+                                 @RequestParam("zipcode") String zipcode,
+                                 Authentication auth){
+
+        return userService.update(auth, firstname, lastname, gender,dob, phone, address, city, state, country, zipcode);
+    }
+    @PostMapping("/updatePassword")
+    public ResponseEntity updatePassword(@RequestParam("password") String password,Authentication auth){
+        return userService.updatePassword(auth, password);
+    }
+
     @PostMapping("/register")
     public ResponseEntity register(@RequestParam("firstname") String firstname,
                                    @RequestParam("lastname") String lastname,
