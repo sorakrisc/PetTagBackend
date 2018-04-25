@@ -32,17 +32,18 @@ public class UserService{
                                    String password,
                                    String gender,
                                    Date dob,
-                                   String phone){
+                                   String phone,
+                                   String address,
+                                   String city,
+                                   String state,
+                                   String country,
+                                   String zipcode){
         if(userRepository.findOneByEmail(email)!=null){
             return ResponseEntity.badRequest().body("username or email is taken");
         }
-        UserProfile userProfile= new UserProfile();
-        userProfile.setGender(Gender.valueOf(gender));
-        userProfile.setPhoneNumber(phone);
-        userProfile.setDateOfBirth(dob);
-
+        UserProfile userProfile= new UserProfile(phone, Gender.valueOf(gender),dob, address, city, state, country, zipcode);
         User newUser = new User(firstname, lastname, email, bCryptPasswordEncoder.encode(password), userProfile);
-        userRepository.save(newUser);
+        saveUser(newUser);
         if(userRepository.findOneByEmail(email)!=null){
             return ResponseEntity.ok("registered");
         } else{

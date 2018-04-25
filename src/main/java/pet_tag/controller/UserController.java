@@ -12,6 +12,7 @@ import pet_tag.repo.UserRepo;
 import pet_tag.service.UserService;
 
 import java.sql.SQLOutput;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
@@ -56,17 +57,23 @@ public class UserController {
         String username = (String) auth.getPrincipal();
         User user = userrp.findOneByEmail(username);
         UserProfile profile = user.getUserProfile();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+        SimpleDateFormat dfMonth = new SimpleDateFormat("MM");
+        SimpleDateFormat dfDay = new SimpleDateFormat("dd");
         Map<String, Object> ret = new HashMap<String, Object>(){{
             put("email",  user.getEmail());
             put("firstname", user.getFirstname());
             put("lastname", user.getLastname());
-            put("day", profile.getDateOfBirth());
+            put("day", dfDay.format(profile.getDateOfBirth()));
+            put("month", dfMonth.format(profile.getDateOfBirth()));
+            put("year", df.format(profile.getDateOfBirth()));
             put("country", profile.getCountry());
             put("address", profile.getAddress());
             put("gender", profile.getGender());
             put("state", profile.getState());
             put("zipcode", profile.getState());
             put("city", profile.getCity());
+            put("phone", profile.getPhoneNumber());
 
         }};
         return ret;
@@ -83,13 +90,18 @@ public class UserController {
                                    @RequestParam("password") String password,
                                    @RequestParam("gender") String gender,
                                    @RequestParam("dateOfBirth")Date dob,
-                                   @RequestParam("phone") String phone
+                                   @RequestParam("phone") String phone,
+                                   @RequestParam("address") String address,
+                                   @RequestParam("city") String city,
+                                   @RequestParam("state") String state,
+                                   @RequestParam("country") String country,
+                                   @RequestParam("zipcode") String zipcode
                                    ){
 
         System.out.println(firstname);
 //        System.out.println(userProfile.getGender());
 //        UserProfile userProfile = null;
 //        return ResponseEntity.ok("ok");
-       return userService.register(firstname, lastname, email, password,gender,dob, phone);
+       return userService.register(firstname, lastname, email, password,gender,dob, phone, address, city, state, country, zipcode);
     }
 }

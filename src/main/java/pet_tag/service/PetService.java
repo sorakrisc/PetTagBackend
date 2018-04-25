@@ -3,6 +3,7 @@ package pet_tag.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 import pet_tag.controller.UserController;
 import pet_tag.model.Gender;
 import pet_tag.model.Pet;
@@ -11,6 +12,7 @@ import pet_tag.repo.UserRepo;
 
 import java.util.Date;
 
+@Service("petService")
 public class PetService {
     @Autowired
     private UserController userController;

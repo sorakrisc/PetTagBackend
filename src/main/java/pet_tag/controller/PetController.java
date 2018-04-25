@@ -25,6 +25,7 @@ public class PetController {
 
     @Autowired
     private PetService petService;
+
     @PostMapping("/addPet")
     public ResponseEntity addPet(Authentication auth,
                                  @RequestParam("gender") String gender,
