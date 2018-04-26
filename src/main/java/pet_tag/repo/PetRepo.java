@@ -6,5 +6,6 @@ import pet_tag.model.Pet;
 
 @Repository("petRepo")
 public interface PetRepo extends JpaRepository<Pet, Long> {
+    Pet findOneByqrId(String qrId);
 
 }

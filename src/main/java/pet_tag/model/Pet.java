@@ -35,11 +35,15 @@ public class Pet {
 
     private String petClass;
 
+    @Column(unique = true)
     private String qrId;
+
     @Lob
     @Column(name="pic")
     private byte[] pic;
 
+    @Lob
+    private byte[] qrCodePng;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid", nullable = false)
@@ -130,5 +134,13 @@ public class Pet {
 
     public void setQrId(String qrId) {
         this.qrId = qrId;
+    }
+
+    public byte[] getQrCodePng() {
+        return qrCodePng;
+    }
+
+    public void setQrCodePng(byte[] qrCodePng) {
+        this.qrCodePng = qrCodePng;
     }
 }

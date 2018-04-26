@@ -4,10 +4,7 @@ package pet_tag.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pet_tag.model.Gender;
 import pet_tag.model.Pet;
 import pet_tag.model.User;
@@ -26,7 +23,16 @@ public class PetController {
     @Autowired
     private PetService petService;
 
-    @PostMapping("/addPet")
+    @GetMapping("/getPet")
+    public ResponseEntity getPet(Authentication auth){
+        return petService.getPet(auth);
+    }
+    //TODO: get petAnon
+    @PostMapping("/addPetAnon")
+    public ResponseEntity getPetAnon(String qrCode){
+        return petService.getPetAnon(qrCode);
+    }
+
     public ResponseEntity addPet(Authentication auth,
                                  @RequestParam("gender") String gender,
                                  @RequestParam("dob")Date dob,
